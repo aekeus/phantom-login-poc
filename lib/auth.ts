@@ -112,13 +112,13 @@ export function setup (runtime: Runtime) {
       )
 
       if (signResult) {
-        console.log('creating session')
         const sessionId = await createSession(runtime.pool, accountId)
         res.cookie('sessionId', sessionId)
         await updateAccountNonce(runtime.pool, accountId)
+        res.sendStatus(200)
+      } else {
+        res.sendStatus(404)
       }
-
-      res.sendStatus(200)
     }
   )
 }
